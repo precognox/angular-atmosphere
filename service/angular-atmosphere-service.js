@@ -1,5 +1,5 @@
 angular.module('angular.atmosphere', [])
-  .service('atmosphereService', function($rootScope){
+  .service('atmosphereService', ['$rootScope', '$timeout', function($rootScope, $timeout){
     var responseParameterDelegateFunctions = ['onOpen', 'onClientTimeout', 'onReopen', 'onMessage', 'onClose', 'onError'];
     var delegateFunctions = responseParameterDelegateFunctions;
     delegateFunctions.push('onTransportFailure');
@@ -12,21 +12,21 @@ angular.module('angular.atmosphere', [])
           if(typeof value === 'function' && delegateFunctions.indexOf(property) >= 0){
             if(responseParameterDelegateFunctions.indexOf(property) >= 0)
               result[property] = function(response){
-                $rootScope.$apply(function(){
+                $timeout(function(){
                   r[property](response);
-                });
+                }, 0);
               };
             else if(property === 'onTransportFailure')
               result.onTransportFailure = function(errorMsg, request){
-                $rootScope.$apply(function(){
+                $timeout(function(){
                   r.onTransportFailure(errorMsg, request);
-                });
+                }, 0);
               };
             else if(property === 'onReconnect')
               result.onReconnect = function(request, response){
-                $rootScope.$apply(function(){
+                $timeout(function(){
                   r.onReconnect(request, response);
-                });
+                }, 0);
               };
           }else
             result[property] = r[property];
@@ -35,4 +35,4 @@ angular.module('angular.atmosphere', [])
         return atmosphere.subscribe(result);
       }
     };
-  });
+  }]);
