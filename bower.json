@@ -1,0 +1,22 @@
+{
+  "name": "angular-atmosphere-service",
+  "version": "0.0.1",
+  "homepage": "https://github.com/davidmartinho/angular-atmosphere",
+  "authors": [
+    "David Martinho <davidmartinho@gmail.com>"
+  ],
+  "description": "An angular service by spyboost @ https://github.com/spyboost/angular-atmosphere",
+  "main": "service/angular-atmosphere-service.js",
+  "keywords": [
+    "angular",
+    "atmosphere"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
