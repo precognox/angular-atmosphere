@@ -12,9 +12,9 @@ angular.module('angular.atmosphere', [])
           if(typeof value === 'function' && delegateFunctions.indexOf(property) >= 0){
             if(responseParameterDelegateFunctions.indexOf(property) >= 0)
               result[property] = function(response){
-                $timeout(function(){
-                  r[property](response);
-                }, 0);
+                $rootScope.$evalAsync('r[property](response)', {
+                  r: r, property: property, response: angular.copy(response)
+                });
               };
             else if(property === 'onTransportFailure')
               result.onTransportFailure = function(errorMsg, request){
